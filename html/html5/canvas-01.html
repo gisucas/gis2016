@@ -1,0 +1,31 @@
+<html>
+
+<head>
+	<meta charset="UTF-8"> 
+	<style type="text/css">
+		#myCanvas{
+			border: 1px solid #ccc;
+		}
+	</style>
+	<script type="text/javascript" src='js/jquery-1.11.1.js'></script>
+
+	<script type="text/javascript">
+		$().ready(function(){
+			var canvas = document.getElementById("myCanvas");
+			var context = canvas.getContext("2d");
+			context.fillStyle = "red";
+			context.fillRect(10,50,80,40);
+
+			context.strokeStyle = "rgb(0,255,0)";
+			context.strokeRect(10,50,80,40);
+
+		});
+	</script>
+
+    <title>Canvas 绘图</title>
+</head>
+
+<body>
+	<canvas id="myCanvas" width="200" height="100"></canvas>
+</body>
+</html>

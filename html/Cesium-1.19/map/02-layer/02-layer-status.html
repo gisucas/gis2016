@@ -1,0 +1,67 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    @import url(../../Build/Cesium/Widgets/widgets.css);
+    #mapDiv {
+        position: absolute;
+        top: 40px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+    }
+    </style>
+    <script src="../../Build/Cesium/Cesium.js"></script>
+    <title>Cesium layer status</title>
+    <script type="text/javascript">
+        var viewer = null;
+        var nightLayer = null;
+        function init(){
+            viewer = new Cesium.Viewer('mapDiv',{
+                animation : false, // 动画控制不显示
+                baseLayerPicker : false, // 图层控制不显示
+                fullscreenButton : false,// 全屏按钮不显示
+                geocoder : false, // 地名查找不显示
+                homeButton : false, // 首页按钮不显示
+                timeline : false, // 时间线不显示
+                navigationHelpButton : false, // 帮助不显示
+                sceneModePicker : false, // 场景样式不显示
+            });
+
+            var layers = viewer.scene.imageryLayers;
+            nightLayer = layers.addImageryProvider(new Cesium.TileMapServiceImageryProvider({
+                url : '//cesiumjs.org/tilesets/imagery/blackmarble',
+                maximumLevel : 8,
+                credit : 'Black Marble imagery courtesy NASA Earth Observatory'
+            }));
+        } 
+
+        // 设置显示
+        function setLayerVisible(flag){
+            nightLayer.show = flag;
+        }
+
+        // 设置透明度
+        function setLayerAlpha(){
+            nightLayer.alpha = 0.5;
+        }
+
+        // 设置亮度
+        function setLayerBrightness(){
+            nightLayer.brightness = 2.0;
+        }
+
+    </script>
+</head>
+
+<body onload="init()">
+    <span>Cesium layer status</span>
+    <button onclick="setLayerVisible(false)">隐藏</button>
+    <button onclick="setLayerVisible(true)">显示</button>
+    <button onclick="setLayerAlpha()">设置透明度</button>
+    <button onclick="setLayerBrightness()">设置亮度</button>
+    <div id="mapDiv"></div>
+</body>
+</html>
+

@@ -1,0 +1,67 @@
+<html>
+
+<head>
+	<style type="text/css">
+		div{
+			width:200px;
+			height: 200px;
+		}
+	</style>
+
+	<script type="text/javascript" src='js/jquery-1.11.1.js'></script>
+	<script type="text/javascript">
+
+		function onUpdate(){
+			var params = $("#xml").text();
+			var url = "/geoserver/radi/ows"
+			$.ajax({
+				type	:"post",
+				url		: url,
+				data	: params,
+				dataType: "text",
+				contentType: "text/xml",
+				async	: true,
+				beforeSend: function(XMLHttpRequest){
+				},
+				success	: function(xml, textStatus){
+					alert(xml);
+				},
+				complete: function(XMLHttpRequest, textStatus){
+				},
+				error	: function(){
+					processError();
+				}
+			});
+		};
+	</script>
+
+    <title>WFS Update</title>
+</head>
+
+<body>
+	<input type='button' value='Update' onclick="onUpdate();">
+	<br>
+	<textarea id="xml" rows="30" cols="100">
+<wfs:Transaction service="WFS" version="1.0.0"
+  xmlns:wfs="http://www.opengis.net/wfs"
+  xmlns:radi="www.radi.ac.cn/"
+  xmlns:gml="http://www.opengis.net/gml"
+  xmlns:ogc="http://www.opengis.net/ogc"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.opengis.net/wfs 
+  	http://schemas.opengis.net/wfs/1.0.0/WFS-transaction.xsd
+  	http://www.radi.ac.cn/">
+  <wfs:Update typeName="radi:cities">
+    <wfs:Property>
+      <wfs:Name>radi:name</wfs:Name>
+      <wfs:Value>Upddddated</wfs:Value>
+    </wfs:Property>
+    <ogc:Filter>
+      <ogc:FeatureId fid="cities.607"/>
+    </ogc:Filter>
+  </wfs:Update>
+</wfs:Transaction>
+	</textarea>
+</body>
+
+</html>

@@ -1,0 +1,252 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet"
+		  type="text/css" href="map-14.css">
+    <title>地图布局</title>
+</head>
+
+<body>
+</body>
+	<div id='head_div'>
+		<div id='search_div'>
+			<div id='logo_div'></div>
+			<div id='search_box'>
+				<ul>
+					<li><input id='search_text' type='text' placeholder='请输入查询条件'></li>
+					<li><a id='search_btn' href='#'>搜索</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id='main_div'>
+		<div id='result_container_div'>
+			<div class='result_container'>
+				<ul>
+					<li><div class='result_logo'></div></li>
+					<li><div class='result_div'>
+							<div class="result_name">哈业胡同火车站</div>
+							<div class="result_address">地址:哈业胡同乡</div>
+						</div>
+					</li>
+					<div style="clear:both;"></div> 
+				</ul>
+			</div>
+			<div class='result_container'>
+				<ul>
+					<li><div class='result_logo'></div></li>
+					<li><div class='result_div'>
+							<div class="result_name">食品火车站</div>
+							<div class="result_address">地址:乌海市海南区</div>
+						</div>
+					</li>
+					<div style="clear:both;"></div> 
+				</ul>
+			</div>
+			<div class='result_container'>
+				<ul>
+					<li><div class='result_logo'></div></li>
+					<li><div class='result_div'>
+							<div class="result_name">通辽火车站</div>
+							<div class="result_address">地址:南顺大街迎宾广场南侧</div>
+						</div>
+					</li>
+					<div style="clear:both;"></div> 
+				</ul>
+			</div>						
+		</div>
+		<div id='map_container_div'>
+			<div id='toolbar_div'>
+				<div id="city">
+					<span>北京</span>
+					<i class="down"></i>
+				</div>
+				<div class="toolbar_list">
+					<div class="map_tool ">
+						<img src="img/full_screen.png">
+						<a href="javascript:void(0)">全屏</a>
+					</div>
+					<div class="map_tool ">
+						<img src="img/ruler.png">
+						<a href="javascript:void(0)">测量</a>
+					</div>
+					
+					<div class="map_tool ">
+						<img src="img/world.png">
+						<a href="javascript:void(0)">全图显示</a>
+					</div>
+					<div class="map_tool ">
+						<img src="img/label.png">
+						<a href="javascript:void(0)">标记</a>
+					</div>
+					<div class="map_tool ">
+						<img src="img/search.png">
+						<a href="javascript:void(0)">在视野内搜索</a>
+					</div>
+				</div>
+				<div style="clear:both"></div>
+			</div>
+			<div id='map_div'></div>
+			<div id="city_div">
+				<div id="current_city">当前城市是:<span>北京</span></div>
+				<div id="pop_city">
+					<ul>
+						<li><a href="javascript:void(0)">北京</a></li>
+						<li><a href="javascript:void(0)">上海</a></li>
+						<li><a href="javascript:void(0)">天津</a></li>
+						<li><a href="javascript:void(0)">重庆</a></li>
+						<li><a href="javascript:void(0)">南京</a></li>
+						<li><a href="javascript:void(0)">武汉</a></li>
+						<div style="clear:both;"></div> 
+					</ul>
+				</div>
+				<div id="city_list">
+					<div class="city_item">
+						<div class="prov_name">
+							安徽:
+						</div>
+						<div class="prov_city">
+							<a href="javascript:void(0)">合肥</a>
+							<a href="javascript:void(0)">巢湖</a>
+							<a href="javascript:void(0)">芜湖</a>
+							<a href="javascript:void(0)">蚌埠</a>
+							<a href="javascript:void(0)">淮南</a>
+							<a href="javascript:void(0)">马鞍山</a>
+							<a href="javascript:void(0)">淮北</a>
+							<a href="javascript:void(0)">铜陵</a>
+							<a href="javascript:void(0)">安庆</a>
+							<a href="javascript:void(0)">黄山</a>
+							<a href="javascript:void(0)">滁州</a>
+							<a href="javascript:void(0)">阜阳</a>
+							<a href="javascript:void(0)">六安</a>
+							<a href="javascript:void(0)">亳州</a>
+							<a href="javascript:void(0)">池州</a>
+							<a href="javascript:void(0)" >宣城</a>
+						</div>
+						<div style="clear:both;"></div> 
+					</div>
+					<div class="city_item">
+						<div class="prov_name">
+							福建:
+						</div>
+						<div class="prov_city">
+							<a href="javascript:void(0)">福州</a>
+							<a href="javascript:void(0)">厦门</a>
+							<a href="javascript:void(0)">莆田</a>
+							<a href="javascript:void(0)">三明</a>
+							<a href="javascript:void(0)">泉州</a>
+							<a href="javascript:void(0)">漳州</a>
+							<a href="javascript:void(0)">南平</a>
+							<a href="javascript:void(0)">龙岩</a>
+							<a href="javascript:void(0)">宁德</a>
+						</div>
+						<div style="clear:both;"></div> 
+					</div>
+					<div class="city_item">
+						<div class="prov_name">
+							甘肃:
+						</div>
+						<div class="prov_city">
+							<a href="javascript:void(0)">兰州</a>
+							<a href="javascript:void(0)">嘉峪关</a>
+							<a href="javascript:void(0)">金昌</a>
+							<a href="javascript:void(0)">白银</a>
+							<a href="javascript:void(0)">天水</a>
+							<a href="javascript:void(0)">武威</a>
+							<a href="javascript:void(0)">张掖</a>
+							<a href="javascript:void(0)">张掖</a>
+							<a href="javascript:void(0)">酒泉</a>
+							<a href="javascript:void(0)">庆阳</a>
+							<a href="javascript:void(0)">定西</a>
+							<a href="javascript:void(0)">陇南</a>
+							<a href="javascript:void(0)">临夏回族自治州</a>
+							<a href="javascript:void(0)">甘南藏族自治州</a>
+						</div>
+						<div style="clear:both;"></div> 
+					</div>
+					<div class="city_item">
+						<div class="prov_name">
+							广东:
+						</div>
+						<div class="prov_city">
+							<a href="javascript:void(0)">广州</a>
+							<a href="javascript:void(0)">韶关</a>
+							<a href="javascript:void(0)">深圳</a>
+							<a href="javascript:void(0)">珠海</a>
+							<a href="javascript:void(0)">汕头</a>
+							<a href="javascript:void(0)">汕头</a>
+							<a href="javascript:void(0)">江门</a>
+							<a href="javascript:void(0)">湛江</a>
+							<a href="javascript:void(0)">茂名</a>
+							<a href="javascript:void(0)">肇庆</a>
+							<a href="javascript:void(0)">惠州</a>
+							<a href="javascript:void(0)">惠州</a>
+							<a href="javascript:void(0)">汕尾</a>
+							<a href="javascript:void(0)">河源</a>
+							<a href="javascript:void(0)">阳江</a>
+							<a href="javascript:void(0)">清远</a>
+							<a href="javascript:void(0)">东莞</a>
+							<a href="javascript:void(0)">中山</a>
+							<a href="javascript:void(0)">揭阳</a>
+							<a href="javascript:void(0)">云浮</a>
+						</div>
+						<div style="clear:both;"></div> 
+					</div>
+					<div class="city_item">
+						<div class="prov_name">
+							广东:
+						</div>
+						<div class="prov_city">
+							<a href="javascript:void(0)">广州</a>
+							<a href="javascript:void(0)">韶关</a>
+							<a href="javascript:void(0)">深圳</a>
+							<a href="javascript:void(0)">珠海</a>
+							<a href="javascript:void(0)">汕头</a>
+							<a href="javascript:void(0)">汕头</a>
+							<a href="javascript:void(0)">江门</a>
+							<a href="javascript:void(0)">湛江</a>
+							<a href="javascript:void(0)">茂名</a>
+							<a href="javascript:void(0)">肇庆</a>
+							<a href="javascript:void(0)">惠州</a>
+							<a href="javascript:void(0)">惠州</a>
+							<a href="javascript:void(0)">汕尾</a>
+							<a href="javascript:void(0)">河源</a>
+							<a href="javascript:void(0)">阳江</a>
+							<a href="javascript:void(0)">清远</a>
+							<a href="javascript:void(0)">东莞</a>
+							<a href="javascript:void(0)">中山</a>
+							<a href="javascript:void(0)">揭阳</a>
+							<a href="javascript:void(0)">云浮</a>
+						</div>
+						<div style="clear:both;"></div> 
+					</div>
+					<div class="city_item">
+						<div class="prov_name">
+							广西:
+						</div>
+						<div class="prov_city">
+							<a href="javascript:void(0)">南宁</a>
+							<a href="javascript:void(0)">柳州</a>
+							<a href="javascript:void(0)">桂林</a>
+							<a href="javascript:void(0)">梧州</a>
+							<a href="javascript:void(0)">北海</a>
+							<a href="javascript:void(0)">防城港</a>
+							<a href="javascript:void(0)">钦州</a>
+							<a href="javascript:void(0)">贵港</a>
+							<a href="javascript:void(0)">玉林</a>
+							<a href="javascript:void(0)">百色</a>
+							<a href="javascript:void(0)">贺州</a>
+							<a href="javascript:void(0)">河池</a>
+							<a href="javascript:void(0)">来宾</a>
+							<a href="javascript:void(0)">崇左</a>
+						</div>
+						<div style="clear:both;"></div> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</html>
+
+              

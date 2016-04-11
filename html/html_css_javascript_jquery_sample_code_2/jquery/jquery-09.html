@@ -1,0 +1,98 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+
+		#container{
+			width:200px;
+			height: 200px;
+			background-color: #00FF00;
+			border: 1px solid #565656;
+		}
+
+		#inner1{
+			background-color: #F105F5;
+			width: 60px;
+			height: 40px;
+		}
+
+		#inner2{
+			background-color: #A0A1F0;
+			width: 100px;
+			height: 60px;
+		}
+
+
+		.before{
+			width: 100px;
+			height: 30px;
+			background-color: #A456E2;
+		}
+
+		.after{
+			width: 100px;
+			height: 30px;
+			background-color: #FF0000;
+		}
+		.append{
+			width: 100px;
+			height: 30px;
+			background-color: #0000FF;
+		}
+
+		.prepend{
+			width: 100px;
+			height: 30px;
+			background-color: #567890;
+		}
+	</style>
+
+	<script type="text/javascript" src='js/jquery-1.11.1.js'></script>
+	<script type="text/javascript">
+
+		function after_f(){
+			var html = "<div class='after'>之后插入元素</div>";
+			var container = $("#container");
+			container.after(html);
+		}
+
+		function before_f(){
+			var html = "<div class='before'>之前插入元素</div>";
+			var container = $("#container");
+			container.before(html);
+		}
+
+		function append_f(){
+			var html = "<div class='append'>尾部插入元素</div>";
+			var container = $("#container");
+			container.append(html);
+		}
+
+		function prepend_f(){
+			var html = "<div class='prepend'>开头插入元素</div>";
+			var container = $("#container");
+			container.prepend(html);
+		}
+	</script>
+
+    <title>jQuery操作文档</title>
+</head>
+
+<body>
+	<button id="btn" onclick="after_f()">after</button>
+	<button id="btn" onclick="before_f()">before</button>
+	<button id="btn" onclick="append_f()">append</button>
+	<button id="btn" onclick="prepend_f()">prepend</button>
+	<br/>
+	<div id="container">
+		<div id="inner1">
+			inner1
+		</div>
+		<div id="inner2">
+			inner2
+		</div>
+	</div>
+</body>
+
+</html>

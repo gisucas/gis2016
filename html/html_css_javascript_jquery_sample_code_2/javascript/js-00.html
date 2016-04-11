@@ -1,0 +1,26 @@
+<html>
+
+<head>
+	<meta charset="UTF-8"> 
+	<script type="text/javascript">
+		function onButton(){
+			var obj = document.getElementById('txt1');
+			//alert(obj);
+			//alert(obj.value);
+			
+			var objDiv = document.getElementById('container')
+			var html = '<table border="1"><tr><td>' + obj.value + '</td></tr></table>';
+
+			objDiv.innerHTML = html;
+		}
+	</script>
+    <title>onload事件</title>
+</head>
+
+<body>
+	<input id='txt1' type="text" value='ssss'>
+	<input type='button' value='按钮' onclick="onButton()">
+	<div id='container'></div>
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../v3.13.0-dist/ol.css" type="text/css">
+    <style>
+    #mapDiv {
+        height: 100%;
+        width: 100%;
+    }
+    </style>
+    <script src="../v3.13.0-dist/ol-debug.js" type="text/javascript"></script>
+    <title>[Interaction]:Select</title>
+</head>
+
+<body onload="init()">
+    <h2>[Interaction]:Select</h2>
+    <div id="resultDiv"></div>
+    <div id="mapDiv"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+/**
+ * Define mapObj
+ */
+var mapObj;
+var vector;
+var select;
+
+/**
+ * init Page
+ */
+function init() {
+    loadMap();
+    addSelect();
+}
+
+/**
+ * Load Map
+ */
+function loadMap() {
+
+    var raster = new ol.layer.Tile({
+        source: new ol.source.MapQuest({
+            layer: 'sat'
+        })
+    });
+
+    vector = new ol.layer.Vector({
+        source: new ol.source.Vector({
+            url: '../data/geojson/countries.geojson',
+            format: new ol.format.GeoJSON()
+        })
+    });
+
+
+    mapObj = new ol.Map({
+        target: 'mapDiv',
+        layers: [raster, vector],
+        view: new ol.View({
+            center: [0, 0],
+            zoom: 2
+        })
+    });
+}
+
+/* 添加Select */
+function addSelect() {
+    //1.创建select Interaction
+    select = new ol.interaction.Select({
+        //2.设置触发条件为鼠标点击
+        condition: ol.events.condition.click
+    });
+    //3.添加到mapObj上
+    mapObj.addInteraction(select);
+
+    //4.注册select interaction事件，响应select事件
+    select.on('select', onSelect);
+}
+
+/* Select Interaction的Select事件监听器 */
+function onSelect(evt){
+
+    var html = "<table border='1'>";
+    html += "<tr><td>name</td><td>xmin</td><td>ymin</td><td>xmax</td><td>ymax</td></tr>";
+
+    //1.获取Select Interaction对象
+    var obj = evt.target;
+    //2.获取选中的feature集合
+    var features = obj.getFeatures();
+    //3. 遍历features集合，参数为ol.Feature对象f
+    features.forEach(function(f){
+        //4.获取f的几何对象g
+        var g = f.getGeometry();
+        //5.获取g的空间矩形范围
+        var e = g.getExtent();
+        //6.获取f的属性集合，props为<key,value>集合。
+        //  key为字段名，value为字段值
+        var props = f.getProperties();
+
+        //7.编写html片段
+        html += "<tr>";
+        html += "<td>" + props["name"] + "</td>";
+        html += "<td>" + e[0] + "</td>";
+        html += "<td>" + e[1] + "</td>";
+        html += "<td>" + e[2] + "</td>";
+        html += "<td>" + e[3] + "</td>";
+        html += "</tr>";
+    });
+    html += '</table>';
+    //9.在resultDiv中显示表格
+    document.getElementById('resultDiv').innerHTML = html;
+}
+
+</script>

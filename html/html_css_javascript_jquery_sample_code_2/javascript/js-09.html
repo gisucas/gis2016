@@ -1,0 +1,21 @@
+<html>
+
+<head>
+	<meta charset="UTF-8"> 
+	<script type="text/javascript">
+
+		var text = "{\"type\":\"Point\",\"coordinates\":[104.177116394043,1.22979354858398]}";
+		function onGeoJson(){
+			alert(text);
+			var obj = eval("("+text+")");
+			alert(obj.type);
+		}
+	</script>
+    <title>解析geojson</title>
+</head>
+
+<body>
+	<input type="button" onclick="onGeoJson();" value="解析json" />
+</body>
+
+</html>

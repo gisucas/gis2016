@@ -1,0 +1,86 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+
+		#container{
+			width:200px;
+			height: 200px;
+			background-color: #0097c3;
+			border: 1px solid #565656;
+		}
+
+		#inner1{
+			background-color: #F105F5;
+			width: 60px;
+			height: 40px;
+		}
+
+		#inner2{
+			background-color: #A0A1F0;
+			width: 100px;
+			height: 60px;
+		}
+
+	</style>
+	<script type="text/javascript" src='js/jquery-1.11.1.js'></script>
+	<script type="text/javascript">
+
+		function get_html(){
+			var html = $("#container").html();
+			alert(html);
+		}
+
+		function set_html(){
+			var html = "<p>这是设置的html内容</p>";
+			 $("#container").html(html);
+		}
+
+		function get_text(){
+			var text = $("#container").text();
+			alert(text);
+		}
+
+		function set_text(){
+			var text = "这是设置的text内容";
+			$("#container").text(text);
+		}
+
+		function get_val(){
+			var val = $("input").val();
+			alert(val);
+		}
+
+		function set_val(){
+			var val = "这是设置的val内容";
+			$("input").val(val);
+		}
+
+	</script>
+
+    <title>jQuery操作文档</title>
+</head>
+
+<body>
+	<button id="btn" onclick="get_html()">get html</button>
+	<button id="btn" onclick="set_html()">set html</button>
+	<button id="btn" onclick="get_text()">get text</button>
+	<button id="btn" onclick="set_text()">set text</button><br/><br/>
+	<button id="btn" onclick="get_val()">get val</button>
+	<button id="btn" onclick="set_val()">set val</button>
+	<br/>
+	<br/>
+	<div id="container">
+		<div id="inner1">
+			inner1
+		</div>
+		<div id="inner2">
+			inner2
+		</div>
+	</div>
+	<br/>
+	<input type="text" value="文本框的内容">
+</body>
+
+</html>

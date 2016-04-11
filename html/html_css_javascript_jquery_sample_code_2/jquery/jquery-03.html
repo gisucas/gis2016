@@ -1,0 +1,46 @@
+<html>
+
+<head>
+	<meta charset="UTF-8"> 
+	<script type="text/javascript" src='js/jquery-1.11.1.js'></script>
+
+	<script type="text/javascript">
+
+		function onAjaxGet(){
+			var url = "http://127.0.0.1/geoserver/radi/ows"
+			var params = "service=WFS&version=1.0.0&request=GetFeature&typeName=radi:cities&maxFeatures=50&outputFormat=GML2";
+			$.ajax({
+				type	:"get",
+				url		: url,
+				data	: encodeURI(params),
+				dataType: "text",
+				async	: true,
+				beforeSend: function(XMLHttpRequest){
+				},
+				success	: function(xml, textStatus){
+					proessResult(xml);
+				},
+				complete: function(XMLHttpRequest, textStatus){
+				},
+				error	: function(){
+					processError();
+				}
+			});
+		};
+
+		function proessResult(xml){
+			alert(xml)
+		}
+
+	</script>
+
+    <title>Ajax GET</title>
+</head>
+
+<body>
+	<input id="btn" type="button" value="GET请求" onclick="onAjaxGet();" />
+	<br>
+	<div id="result" style="width:100%;height:500px"></div>
+</body>
+
+</html>

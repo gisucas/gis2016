@@ -1,0 +1,43 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../v3.13.0-dist/ol.css" type="text/css">
+    <script src="../v3.13.0-dist/ol-debug.js" type="text/javascript"></script>
+    <style>
+    #mapDiv {
+        width: 100%;
+        height: 100%;
+    }
+    </style>
+    <title>WKT转GML</title>
+</head>
+
+<body>
+    <h2>WKT转GML</h2>
+    WKT:<br><input id='wkt' type='text' size='100' value='Polygon((116.16600 40.05537,116.63841 40.05117,116.57661 39.76147,116.09596 39.76358,116.16600 40.05537))'>
+    <br><br>
+    <input type='button' value='WKT-->GML' onclick="onWKT2GML()">
+    <br><br>
+    GML:<br><textarea id="gml" rows='5' cols='100'></textarea>
+</body>
+
+</html>
+<script type="text/javascript">
+
+function onWKT2GML(){
+  //1.读取wkt数据
+  var wkt = document.getElementById('wkt').value;
+
+  //2.创建wkt format对象
+  var wkt_format = new ol.format.WKT();
+  //3.wkt文本数据转换为geoemtry对象
+  var geometry = wkt_format.readGeometry(wkt);
+
+  //4.
+  var gml_format = new ol.format.GML();
+  var gml = gml_format.writeGeometry(geometry);
+
+  document.getElementById("gml").value = gml;
+}
+</script>

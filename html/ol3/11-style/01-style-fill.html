@@ -1,0 +1,89 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../v3.13.0-dist/ol.css" type="text/css">
+    <style>
+    #mapDiv {
+        height: 100%;
+        width: 100%;
+    }
+    </style>
+    <script src="../v3.13.0-dist/ol-debug.js" type="text/javascript"></script>
+    <title>[Style]:填充样式</title>
+</head>
+
+<body onload="init()">
+    <h2>[Style]:填充样式</h2>
+    <input type='button' value='设置填充样式' onclick="onSetFill()"></input>
+    r:<input type='text' id='f_r' value='255' size='10'></input>
+    g:<input type='text' id='f_g' value='0' size='10'></input>
+    b:<input type='text' id='f_b' value='0' size='10'></input>
+    a:<input type='text' id='f_a' value='1.0' size='10'></input>
+    <div id="mapDiv"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+/**
+ * Define mapObj
+ */
+var mapObj;
+
+/**
+ * init Page
+ */
+function init() {
+    loadMap();
+}
+
+/**
+ * Load Map
+ */
+function loadMap() {
+
+    var raster = new ol.layer.Tile({
+        source: new ol.source.MapQuest({
+            layer: 'sat'
+        })
+    });
+    //1.创建vector图层
+    vector = new ol.layer.Vector({
+        source: new ol.source.Vector({
+            url: '../data/geojson/countries.geojson',
+            format: new ol.format.GeoJSON()
+        }),
+        style: new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: 'rgba(255, 0, 0, 0.5)'
+            })
+        })
+    });
+    mapObj = new ol.Map({
+        target: 'mapDiv',
+        layers: [raster, vector],
+        view: new ol.View({
+            center: ol.proj.fromLonLat([0, 0]),
+            zoom: 2
+        })
+    });
+}
+
+function onSetFill(){
+    //1.读取Fill颜色
+    var r = document.getElementById('f_r').value;
+    var g = document.getElementById('f_g').value;
+    var b = document.getElementById('f_b').value;
+    var a = document.getElementById('f_a').value;
+    var color = 'rgba('+ r +','+g +','+b+','+a+')';
+    //2.获取图层样式
+    var style = vector.getStyle();
+    //3.获取Fill对象
+    var fill = style.getFill();
+    //4.设置Fill颜色
+    fill.setColor(color);
+    //5.重绘图层
+    vector.getSource().changed();
+}
+
+</script>

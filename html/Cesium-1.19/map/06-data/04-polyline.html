@@ -1,0 +1,69 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    @import url(../../Build/Cesium/Widgets/widgets.css);
+    #mapDiv {
+        position: absolute;
+        top: 40px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+    }
+    </style>
+    <script src="../../Build/Cesium/Cesium.js"></script>
+    <title>Cesium data cylinder</title>
+    <script type="text/javascript">
+        var viewer = null;
+        function init(){
+            viewer = new Cesium.Viewer('mapDiv',{
+                animation : false, // 动画控制不显示
+                baseLayerPicker : false, // 图层控制不显示
+                fullscreenButton : false,// 全屏按钮不显示
+                geocoder : false, // 地名查找不显示
+                homeButton : false, // 首页按钮不显示
+                timeline : false, // 时间线不显示
+                navigationHelpButton : false, // 帮助不显示
+                sceneModePicker : false, // 场景样式不显示
+            });
+
+        } 
+
+        function addPolyline(){
+            var polyline = viewer.entities.add({
+                name : 'Red line on the surface',
+                polyline : {
+                    // 坐标序列
+                    positions : Cesium.Cartesian3.fromDegreesArray([106, 39,145, 39]),
+                    width : 10, // 线宽
+                    material : Cesium.Color.RED, // 颜色
+                }
+            });
+            viewer.zoomTo(polyline);     // 放大到该polyline       
+        }
+
+        function addPolylineNotSurface(){
+            var polyline = viewer.entities.add({
+                name : 'Yellow line not on the surface',
+                polyline : {
+                    // 坐标序列
+                    positions : Cesium.Cartesian3.fromDegreesArrayHeights([106,41,500000,
+                                                        145, 41,500000]),
+                    followSurface : false, // 不贴地
+                    material : Cesium.Color.YELLOW, // 颜色
+                }
+            });
+            viewer.zoomTo(polyline);            
+        }
+    </script>
+</head>
+
+<body onload="init()">
+    <span>Cesium data polyline</span>
+    <button onclick="addPolyline()">polyline</button>
+    <button onclick="addPolylineNotSurface()">polyline not surface</button>
+    <div id="mapDiv"></div>
+</body>
+</html>
+

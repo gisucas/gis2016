@@ -1,0 +1,67 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../v3.13.0-dist/ol.css" type="text/css">
+    <style>
+    #mapDiv {
+        height: 100%;
+        width: 100%;
+    }
+    </style>
+    <script src="../v3.13.0-dist/ol-debug.js" type="text/javascript"></script>
+    <title>地图视图:缩放到Geometry</title>
+</head>
+
+<body onload="init()">
+    <h2>地图视图:缩放到Geometry</h2>
+    
+    <input type='button' value='缩放到Geometry' onclick='onFitGeometryExtent()'>
+    国家名：<input id='country' type='text' size='20'>
+    <div id="mapDiv"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+var mapObj;
+var vector,tile;
+
+function init() {
+
+    vector = new ol.layer.Vector({
+        source: new ol.source.Vector({
+            url: '../data/geojson/countries.geojson',
+            format: new ol.format.GeoJSON()
+        })
+    });
+
+    tile = new ol.layer.Tile({
+                source: new ol.source.OSM({
+                    url: 'http://{a-c}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png'
+                })
+            });
+
+    mapObj = new ol.Map({
+        target: 'mapDiv',
+        layers: [tile, vector],
+        view: new ol.View({
+            center: ol.proj.fromLonLat([0,0]),
+            zoom: 3
+        })
+    });
+}
+
+function onFitGeometryExtent() {
+    //1.获取vector图层的第一个feature
+    var source = vector.getSource();
+    var features = source.getFeatures();
+    var feature = features[0];
+    //2. 获取feature的geometry
+    var geometry = feature.getGeometry();
+    //3. 缩放到geometry范围
+    mapObj.getView().fit(geometry, mapObj.getSize());
+
+    var name = feature.getProperties()['name'];
+    document.getElementById('country').value = name;
+}
+</script>

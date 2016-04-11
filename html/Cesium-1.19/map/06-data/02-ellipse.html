@@ -1,0 +1,92 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    @import url(../../Build/Cesium/Widgets/widgets.css);
+    #mapDiv {
+        position: absolute;
+        top: 40px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+    }
+    </style>
+    <script src="../../Build/Cesium/Cesium.js"></script>
+    <title>Cesium data ellipse</title>
+    <script type="text/javascript">
+        var viewer = null;
+        var nightLayer = null;
+        function init(){
+            viewer = new Cesium.Viewer('mapDiv',{
+                animation : false, // 动画控制不显示
+                baseLayerPicker : false, // 图层控制不显示
+                fullscreenButton : false,// 全屏按钮不显示
+                geocoder : false, // 地名查找不显示
+                homeButton : false, // 首页按钮不显示
+                timeline : false, // 时间线不显示
+                navigationHelpButton : false, // 帮助不显示
+                sceneModePicker : false, // 场景样式不显示
+            });
+
+        } 
+
+        function addCircle(){
+            var circle = viewer.entities.add({
+                name : 'Green circle at height',
+                position: Cesium.Cartesian3.fromDegrees(112,39.9, 300000.0),// 位置
+                ellipse : {
+                    semiMinorAxis : 300000.0, // 短半轴
+                    semiMajorAxis : 300000.0, // 长半轴
+                    height: 200000.0, // 高度
+                    material : Cesium.Color.GREEN // 颜色
+                }
+            });
+            viewer.zoomTo(circle); //放到到该circle
+        }
+
+
+        function addEllipse(){
+            var ellipse = viewer.entities.add({
+                name : 'Red ellipse on surface with outline',
+                position: Cesium.Cartesian3.fromDegrees(123.4,39.9,0),
+                ellipse : {
+                    semiMinorAxis : 250000.0,// 短半轴
+                    semiMajorAxis : 400000.0,// 长半轴
+                    material : Cesium.Color.RED.withAlpha(0.5), // 红色，透明
+                    outline : true, // 显示外边框
+                    outlineColor : Cesium.Color.RED //外边框颜色
+                }
+            });
+            viewer.zoomTo(ellipse);
+        }
+
+
+        function addEllipseWithHeight(){
+            var ellipse = viewer.entities.add({
+                name : 'Red ellipse on surface with outline',
+                position: Cesium.Cartesian3.fromDegrees(133,39.9,0),
+                ellipse : {
+                    semiMinorAxis : 150000.0,// 短半轴
+                    semiMajorAxis : 300000.0,// 长半轴
+                    extrudedHeight : 200000.0, // 拉伸高度
+                    rotation : Cesium.Math.toRadians(45), // 旋转角度
+                    material : Cesium.Color.BLUE.withAlpha(0.5), // 颜色
+                    outline : true // 显示外边框
+                }
+            });
+            viewer.zoomTo(ellipse);
+        }
+
+    </script>
+</head>
+
+<body onload="init()">
+    <span>Cesium data ellipse</span>
+    <button onclick="addCircle()">circle</button>
+    <button onclick="addEllipse()">ellipse</button>
+    <button onclick="addEllipseWithHeight()">ellipse option</button>
+    <div id="mapDiv"></div>
+</body>
+</html>
+

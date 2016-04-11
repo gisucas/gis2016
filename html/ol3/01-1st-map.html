@@ -1,0 +1,43 @@
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="v3.13.0-dist/ol.css">
+    <script type="text/javascript" src="v3.13.0-dist/ol.js"></script>
+    <style>
+    #mapDiv {
+        height: 100%;
+        width: 100%;
+    }
+    </style>
+    <title>1st OpenLayers</title>
+</head>
+
+<!--6) 添加onload函数，作为页面初始化函数-->
+<body onload="init()">
+    <h2>1st OpenLayers</h2>
+    <div id="mapDiv"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+/*1定义ol3地图对象mapObj*/
+var mapObj;
+
+function init() {
+    /* 2)创建并初始化ol.Map对象*/
+    mapObj = new ol.Map({
+        target: 'mapDiv',     // 3)设置地图绘制的容器，参数为div的ID：mapDiv
+        layers: [             // 4) 创建并添加MapQuest图层
+            new ol.layer.Tile({
+                source: new ol.source.MapQuest({
+                    layer: 'sat'
+                })
+            })
+        ],
+        view: new ol.View({   // 5)设置地图显示视图，中心点为(0,0)坐标，地图级别为1
+            center: ol.proj.fromLonLat([0, 0]),
+            zoom: 1
+        })
+    });
+}
+</script>

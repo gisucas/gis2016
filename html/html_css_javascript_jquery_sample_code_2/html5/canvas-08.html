@@ -1,0 +1,36 @@
+<html>
+
+<head>
+	<meta charset="UTF-8"> 
+	<style type="text/css">
+		#myCanvas{
+			border: 1px solid #ccc;
+		}
+	</style>
+	<script type="text/javascript" src='js/jquery-1.11.1.js'></script>
+
+	<script type="text/javascript">
+		$().ready(function(){
+		
+		});
+
+		function drawImage(){
+			var canvas = document.getElementById("myCanvas");
+			var context = canvas.getContext("2d");
+			
+			var img = document.getElementById("map");
+			context.drawImage(img,200,100,100,100,20,20,100,100);			
+		}
+	</script>
+
+    <title>Canvas 图像</title>
+</head>
+
+<body>
+	<div><img src="img/map2.png" id="map"></div>
+	<button onclick="drawImage()">绘制图像</button>
+	<br/>
+	<canvas id="myCanvas" width="200" height="200"></canvas>
+
+</body>
+</html>

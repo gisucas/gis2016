@@ -1,0 +1,118 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../v3.13.0-dist/ol.css" type="text/css">
+    <style>
+    #mapDiv {
+        height: 100%;
+        width: 100%;
+    }
+    </style>
+    <script src="../v3.13.0-dist/ol-debug.js" type="text/javascript"></script>
+    <title>[Query]:矩形查询</title>
+</head>
+
+<body onload="init()">
+    <h2>[Query]:矩形查询</h2>
+    <div id="resultDiv"></div>
+    <div id="mapDiv"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+/**
+ * Define mapObj
+ */
+var mapObj;
+var vector;
+var selector;
+
+/**
+ * init Page
+ */
+function init() {
+    loadMap();
+    addDragBox();
+}
+
+/**
+ * Load Map
+ */
+function loadMap() {
+	
+	var raster = new ol.layer.Tile({
+        source: new ol.source.MapQuest({
+            layer: 'sat'
+        })
+    });
+	//1.创建vector图层
+    vector = new ol.layer.Vector({
+        source: new ol.source.Vector({
+            url: '../data/geojson/countries.geojson',
+            format: new ol.format.GeoJSON()
+        })
+    });
+    //2.创建Select选择器
+	selector = new ol.interaction.Select();
+    mapObj = new ol.Map({
+        target: 'mapDiv',
+        layers: [ raster, vector],
+        interactions: ol.interaction.defaults().extend([
+            selector
+        ]),
+        view: new ol.View({
+            center: ol.proj.fromLonLat([0,0]),
+            zoom: 2
+        })
+    });
+}
+
+function addDragBox(){
+
+    var dragBox = new ol.interaction.DragBox();
+    mapObj.addInteraction(dragBox);
+
+    //3.注册boxend事件，在box绘制完成后触发
+    dragBox.on('boxend', function(evt) {
+    	var dragBox = evt.target;
+    	//4.获得Drag后的几何对象Box矩形
+        var extent = dragBox.getGeometry().getExtent();
+        //5.执行box查询
+        boxQuery(vector.getSource(), extent);
+    });
+}
+
+function boxQuery(source, extent){
+	//6.清空selector的选择集
+	var selectedFeatures = selector.getFeatures();
+	selectedFeatures.clear();
+
+	var html = "<table border='1'>";
+    html += "<tr><td>name</td><td>xmin</td>" +
+    		"<td>ymin</td><td>xmax</td><td>ymax</td></tr>";
+
+    //7.遍历选中的feature(包含查询)
+	source.forEachFeatureInExtent(extent, function(feature){
+	//7.遍历选中的feature(相交查询)
+	//source.forEachFeatureIntersectingExtent(extent, function(feature){
+		//8.选中的feature加入selector的选择集
+		selectedFeatures.push(feature);
+
+		//9.获取feature属性，编写html片段
+		var props = feature.getProperties();
+		var extent = feature.getGeometry().getExtent();
+        html += "<tr>";
+        html += "<td>" + props["name"] + "</td>";
+        html += "<td>" + extent[0] + "</td>";
+        html += "<td>" + extent[1] + "</td>";
+        html += "<td>" + extent[2] + "</td>";
+        html += "<td>" + extent[3] + "</td>";
+        html += "</tr>";
+	});
+	html += '</table>';
+    //10.在resultDiv中显示表格
+    document.getElementById('resultDiv').innerHTML = html;
+}
+
+</script>

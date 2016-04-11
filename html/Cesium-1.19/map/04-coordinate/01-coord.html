@@ -1,0 +1,101 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    @import url(../../Build/Cesium/Widgets/widgets.css);
+    #mapDiv {
+        position: absolute;
+        top: 200px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+    }
+    </style>
+    <script src="../../Build/Cesium/Cesium.js"></script>
+    <title>Cesium coordinate</title>
+    <script type="text/javascript">
+
+        var viewer = null;
+        function init(){
+            viewer = new Cesium.Viewer('mapDiv',{
+                animation : false, // 动画控制不显示
+                baseLayerPicker : false, // 图层控制不显示
+                fullscreenButton : false,// 全屏按钮不显示
+                geocoder : false, // 地名查找不显示
+                homeButton : false, // 首页按钮不显示
+                timeline : false, // 时间线不显示
+                navigationHelpButton : false, // 帮助不显示
+                sceneModePicker : false, // 场景样式不显示
+                terrainProvider : new Cesium.CesiumTerrainProvider({
+                    url : '//assets.agi.com/stk-terrain/world',
+                })
+            });
+        }
+
+        // 地理坐标系=》笛卡尔坐标系
+        function cartographicToCartesian(lon,lat,height){
+            var ellipsoid = viewer.scene.globe.ellipsoid; // 当前椭球体
+            var coord_wgs84 = Cesium.Cartographic.fromDegrees(lon, lat, height); //WGS84坐标
+            var coord_xyz = ellipsoid.cartographicToCartesian(coord_wgs84); // WGS84坐标转笛卡尔坐标
+            return coord_xyz;
+        }
+
+        // 笛卡尔坐标系=》地理坐标系
+        function cartesianToCartographic(x,y,z){
+            var ellipsoid = viewer.scene.globe.ellipsoid; // 当前椭球体
+            var xyz = new Cesium.Cartesian3(x, y, z);  // 笛卡尔坐标
+            var wgs84 = ellipsoid.cartesianToCartographic(xyz); // 笛卡尔坐标转WGS84坐标
+            return wgs84;
+        }
+
+
+        function wgs84toxyz(){
+            var lon = document.getElementById("lon").value;
+            var lat = document.getElementById("lat").value;
+            var height = document.getElementById("height").value;
+            // 地理坐标=>笛卡尔坐标
+            var xyz = cartographicToCartesian(lon,lat,height);
+            var html = "x : " + xyz.x + " , y : " + xyz.y + " , z : " + xyz.z;
+            document.getElementById("xyz").innerHTML = html;
+        }
+
+
+        function xyztowgs84(){
+            var x = document.getElementById("x").value;
+            var y = document.getElementById("y").value;
+            var z = document.getElementById("z").value;
+            // 笛卡尔坐标=>地理坐标
+            var wgs84 = cartesianToCartographic(x,y,z);
+            // 弧度转角度
+            var lon = Cesium.Math.toDegrees(wgs84.longitude);
+            var lat = Cesium.Math.toDegrees(wgs84.latitude);
+            var html = "lon : " + lon + " , lat : " + lat + " , height : " + wgs84.height;
+            document.getElementById("wgs84").innerHTML = html;                       
+        }
+
+    </script>
+</head>
+
+<body onload="init()">
+    <span>Cesium coordinate</span>
+    <div>
+        lon :<input type="text" id="lon" value="116">
+        lat :<input type="text" id="lat" value="39">
+        height :<input type="text" id="height" value="1000">
+    </div>
+    <button onclick="wgs84toxyz()">地理坐标转笛卡尔坐标</button>
+    <span id="xyz"></span>
+
+    <div>
+        x :<input type="text" id="x" value="-2176120.1756791715">
+        y :<input type="text" id="y" value="4461707.555933217 ">
+        z :<input type="text" id="z" value="3992946.3431427763">
+    </div>
+    <button onclick="xyztowgs84()">笛卡尔坐标转地理坐标</button>
+    <span id="wgs84"></span>
+    <div id="mapDiv"></div>
+    
+</body>
+</html>
+

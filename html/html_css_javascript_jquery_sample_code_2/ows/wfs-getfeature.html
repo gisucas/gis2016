@@ -1,0 +1,63 @@
+<html>
+
+<head>
+	<style type="text/css">
+		div{
+			width:200px;
+			height: 200px;
+		}
+	</style>
+
+	<script type="text/javascript" src='js/jquery-1.11.1.js'></script>
+	<script type="text/javascript">
+
+		function onGetFeature(){
+			var params = $("#xml").text();
+			//var url = "/geoserver/radi/ows"
+			var url = "/ows/user1/world/ims"
+			$.ajax({
+				type	:"post",
+				url		: url,
+				data	: params,
+				dataType: "text",
+				contentType: "text/xml",
+				async	: true,
+				beforeSend: function(XMLHttpRequest){
+				},
+				success	: function(xml, textStatus){
+					alert(xml);
+					document.getElementById('result').innerHTML = xml;
+				},
+				complete: function(XMLHttpRequest, textStatus){
+				},
+				error	: function(){
+					processError();
+				}
+			});
+		};
+	</script>
+
+    <title>WFS GetFeature</title>
+</head>
+
+<body>
+	<input type='button' value='GetFeature' onclick="onGetFeature();">
+	<br>
+	<textarea id="xml" rows="15" cols="100">
+<wfs:GetFeature service="WFS" version="1.0.0"
+  outputFormat="GML2"
+  xmlns:topp="http://www.openplans.org/topp"
+  xmlns:wfs="http://www.opengis.net/wfs"
+  xmlns:ogc="http://www.opengis.net/ogc"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.opengis.net/wfs
+                      http://schemas.opengis.net/wfs/1.0.0/WFS-basic.xsd">
+  <wfs:Query typeName="radi:cities">
+  </wfs:Query>
+</wfs:GetFeature>
+	</textarea>
+	<br>
+	<div id='result'></div>
+</body>
+
+</html>

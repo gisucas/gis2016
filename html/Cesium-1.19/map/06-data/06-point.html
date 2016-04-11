@@ -1,0 +1,101 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    @import url(../../Build/Cesium/Widgets/widgets.css);
+    #mapDiv {
+        position: absolute;
+        top: 40px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+    }
+    </style>
+    <script src="../../Build/Cesium/Cesium.js"></script>
+    <title>Cesium data point</title>
+    <script type="text/javascript">
+        var viewer = null;
+        function init(){
+            viewer = new Cesium.Viewer('mapDiv',{
+                animation : false, // 动画控制不显示
+                baseLayerPicker : false, // 图层控制不显示
+                fullscreenButton : false,// 全屏按钮不显示
+                geocoder : false, // 地名查找不显示
+                homeButton : false, // 首页按钮不显示
+                timeline : false, // 时间线不显示
+                navigationHelpButton : false, // 帮助不显示
+                sceneModePicker : false, // 场景样式不显示
+            });
+
+            var camera = viewer.camera;
+            camera.flyTo({
+                destination : Cesium.Cartesian3.fromDegrees(116.4,39.9, 100000),
+            });
+        } 
+
+
+        // 添加点
+        function addPoint(){
+            viewer.entities.add({
+                position : Cesium.Cartesian3.fromDegrees(116.4,39.9),
+                point : {
+                    pixelSize : 10, // 像素大小
+                    color : Cesium.Color.YELLOW //颜色
+                }
+            });
+        }
+
+        // 点加外边框
+        function addPointOutline(){
+            viewer.entities.add({
+                position : Cesium.Cartesian3.fromDegrees(116.9,39.9),
+                point : {
+                    pixelSize : 10, // 像素大小
+                    color : Cesium.Color.RED, //颜色
+                    outlineColor : Cesium.Color.YELLOW, // 外边框颜色
+                    outlineWidth : 3 //外边框颜色
+                }
+            });
+        }
+
+        // 点的缩放随距离而变化
+        function addPointScaleByDistance(){
+            viewer.entities.add({
+                position : Cesium.Cartesian3.fromDegrees(116.0,39.9),
+                point : {
+                    pixelSize : 10, // 像素大小
+                    color : Cesium.Color.BLUE, //颜色
+                    // 缩放大小随距离的变化
+                    scaleByDistance : new Cesium.NearFarScalar(1.5e2, 2.0, 1.5e7, 0.5)
+                }
+            });            
+        }
+
+        // 点的透明度随距离变化
+        function addPointFadeByDistance(){
+            viewer.entities.add({
+                position : Cesium.Cartesian3.fromDegrees(116.4,40.2),
+                point : {
+                    pixelSize : 10,// 像素大小
+                    color : Cesium.Color.BLUE, //颜色
+                    // 透明度随距离的变化
+                    translucencyByDistance : new Cesium.NearFarScalar(1.5e2, 1.0, 1.5e7, 0.2)
+                }
+            }); 
+        }
+    </script>
+</head>
+
+<body onload="init()">
+    <span>Cesium data point</span>
+    <button onclick="addPoint()">point</button>
+    <button onclick="addPointOutline()">point outline</button>
+    <button onclick="addPointScaleByDistance()">point scale by distance</button>
+    <button onclick="addPointFadeByDistance()">point fade by distance</button>
+    <div id="mapDiv"></div>
+</body>
+</html>
+
+
+        

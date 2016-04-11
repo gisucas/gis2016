@@ -1,0 +1,96 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    @import url(../../Build/Cesium/Widgets/widgets.css);
+    #mapDiv {
+        position: absolute;
+        top: 40px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+    }
+    </style>
+    <script src="../../Build/Cesium/Cesium.js"></script>
+    <title>Cesium camera flyto</title>
+    <script type="text/javascript">
+        var viewer = null;
+        var nightLayer = null;
+        function init(){
+            viewer = new Cesium.Viewer('mapDiv',{
+                animation : false, // 动画控制不显示
+                baseLayerPicker : false, // 图层控制不显示
+                fullscreenButton : false,// 全屏按钮不显示
+                geocoder : false, // 地名查找不显示
+                homeButton : false, // 首页按钮不显示
+                timeline : false, // 时间线不显示
+                navigationHelpButton : false, // 帮助不显示
+                sceneModePicker : false, // 场景样式不显示
+                imageryProvider :new Cesium.OpenStreetMapImageryProvider({
+                    url : '//a.tile.openstreetmap.org/'
+                })
+            });
+
+        } 
+
+        function flyto(){
+            var camera = viewer.camera;
+            camera.flyTo({
+                destination : Cesium.Cartesian3.fromDegrees(116.4,39.9, 100000), // 目的地
+            });
+        }
+
+        function flytoRect(){
+            var camera = viewer.camera;
+            camera.flyTo({
+                destination : Cesium.Rectangle.fromDegrees(116, 39, 118, 41) // 目的地为矩形范围
+            });
+        }
+
+        function flyto_heading(){
+            var camera = viewer.camera;
+            camera.flyTo({
+                destination : Cesium.Cartesian3.fromDegrees(116.4,39.9, 100000),// 目的地
+                // 目的地方向
+                orientation: {
+                    heading : Cesium.Math.toRadians(90.0), // 航向指向东
+                }
+            });
+        } 
+
+        function flyto_pitch(){
+            var camera = viewer.camera;
+            camera.flyTo({
+                destination : Cesium.Cartesian3.fromDegrees(116.4,39.9, 100000),// 目的地
+                // 目的地方向
+                orientation: {
+                    pitch : Cesium.Math.toRadians(-45) //  俯仰角45°
+                }
+            });           
+        } 
+
+        function flyto_roll(){
+            var camera = viewer.camera;
+            camera.flyTo({
+                destination : Cesium.Cartesian3.fromDegrees(116.4,39.9, 100000),// 目的地
+                // 目的地方向
+                orientation: {
+                    roll : Cesium.Math.toRadians(90) // 设置横滚角
+                }
+            });
+        }      
+    </script>
+</head>
+
+<body onload="init()">
+    <span>Cesium camera flyto</span>
+    <button onclick="flyto()">飞向</button>
+    <button onclick="flyto_heading()">设置padding</button>
+    <button onclick="flyto_pitch()">设置pitch</button>
+    <button onclick="flyto_roll()">设置roll</button>
+    <button onclick="flytoRect()">飞向矩形</button>
+    <div id="mapDiv"></div>
+</body>
+</html>
+

@@ -1,0 +1,65 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../v3.13.0-dist/ol.css" type="text/css">
+    <style>
+    #mapDiv {
+        height: 100%;
+        width: 100%;
+    }
+    </style>
+    <script src="../v3.13.0-dist/ol-debug.js" type="text/javascript"></script>
+    <title>WFS GetFeature</title>
+</head>
+
+<body onload="init()">
+    <h2>WFS GetFeature</h2>
+    <div id="mapDiv"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+var mapObj;
+
+function init() {
+
+    var vectorSource = new ol.source.Vector({
+        format: new ol.format.GeoJSON(),    //1.定义WFS返回格式
+        url: function(extent) {             //2.定义参数化的URL函数，参数为地图范围，可设置为当前地图视图范围
+            return 'http://127.0.0.1/geoserver/wfs?service=WFS&' +
+                'version=1.1.0&request=GetFeature&typename=world:country&' +
+                'outputFormat=application/json&srsname=EPSG:3857&' +
+                'bbox=' + extent.join(',') + ',EPSG:3857';
+        },                                  //3.定义数据加载策略，本例为以tile的方式加载
+        strategy: ol.loadingstrategy.tile(ol.tilegrid.createXYZ({
+            maxZoom: 19
+        }))
+    });
+
+    var vector = new ol.layer.Vector({
+                source: vectorSource,
+                style: new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color: 'rgba(0, 0, 255, 1.0)',
+                        width: 1
+                    })
+                })
+            });
+
+    var tile = new ol.layer.Tile({
+                source: new ol.source.OSM({
+                    url: 'http://{a-c}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png'
+                })
+            });
+
+    mapObj = new ol.Map({
+        target: 'mapDiv',
+        layers: [ tile, vector],    //4.地图上添加图层
+        view: new ol.View({
+            center: ol.proj.fromLonLat([0,0]),
+            zoom: 2
+        })
+    });
+}
+</script>

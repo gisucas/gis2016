@@ -1,0 +1,94 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../v3.13.0-dist/ol.css" type="text/css">
+    <style>
+    #mapDiv {
+        height: 100%;
+        width: 100%;
+    }
+    #resultDiv{
+        width: 100%
+    }
+    </style>
+    <script src="../v3.13.0-dist/ol-debug.js" type="text/javascript"></script>
+    <title>[Query]:WMS GetFeatureInfo</title>
+</head>
+
+<body onload="init()">
+    <h2>[Query]:WMS GetFeatureInfo</h2>
+    <div id="resultDiv"></div>
+    <div id="mapDiv"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+/**
+ * Define mapObj
+ */
+var mapObj;
+var wms;
+
+/**
+ * init Page
+ */
+function init() {
+    loadMap();
+}
+
+/**
+ * Load Map
+ */
+function loadMap() {
+
+    //1.创建WMS图层
+    wms = new ol.source.ImageWMS({
+                    url: 'http://demo.boundlessgeo.com/geoserver/wms',
+                    params: {
+                        'LAYERS': 'topp:states'
+                    }
+                });
+	
+	mapObj = new ol.Map({
+        target: 'mapDiv',
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.OSM({
+                    url: 'http://{a-c}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png'
+                })
+            }),
+            new ol.layer.Image({
+                source: wms
+            })
+        ],
+        view: new ol.View({
+            center: ol.proj.fromLonLat([-96.152343, 37.553287]),
+            zoom: 4
+        })
+    });
+
+    //2.注册mapObj的SingleClick事件，执行GetFeatureInfo
+    mapObj.on('singleclick', onMapClick);
+}
+
+function onMapClick(evt){
+    document.getElementById('resultDiv').innerHTML = '';
+    //3.获得当前视图的分辨率
+    var resolution = mapObj.getView().getResolution();
+    //4.生成WFS GetFeatureInfo的URL
+    var url = wms.getGetFeatureInfoUrl(
+            evt.coordinate,     //鼠标点击处的坐标
+            resolution,         //当前视图分辨率
+            'EPSG:3857',        //地图projection
+            {                   //返回格式
+                'INFO_FORMAT': 'text/html'
+            }
+        );
+    //5.发送GetFeatureInfo请求，写入resultDiv
+    document.getElementById('resultDiv').innerHTML = 
+        '<iframe seamless style="width:100%" src="' 
+            + url + '"></iframe>';
+}
+
+</script>

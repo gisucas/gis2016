@@ -1,0 +1,90 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../v3.13.0-dist/ol.css" type="text/css">
+    <style>
+    #mapDiv {
+        height: 100%;
+        width: 100%;
+    }
+    </style>
+    <script src="../v3.13.0-dist/ol-debug.js" type="text/javascript"></script>
+    <title>[Style]:文字标注样式</title>
+</head>
+
+<body onload="init()">
+    <h2>[Style]:文字标注样式</h2>
+    <div id="mapDiv"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+/**
+ * Define mapObj
+ */
+var mapObj;
+
+/**
+ * init Page
+ */
+function init() {
+    loadMap();
+}
+
+/**
+ * Load Map
+ */
+function loadMap() {
+
+    var raster = new ol.layer.Tile({
+        source: new ol.source.MapQuest({
+            layer: 'sat'
+        })
+    });
+
+    vector = new ol.layer.Vector({
+        source: new ol.source.Vector({
+            url: '../data/geojson/countries.geojson',
+            format: new ol.format.GeoJSON()
+        }),
+        //1.设置创建style函数
+        style: createLabelStyle
+    });
+    mapObj = new ol.Map({
+        target: 'mapDiv',
+        layers: [raster, vector],
+        view: new ol.View({
+            center: ol.proj.fromLonLat([95.7623291, 38.70614230]),
+            zoom: 10,
+        })
+    });
+}
+
+//2.定义创建style函数，第一个参数是当前的feature
+function createLabelStyle(feature) {
+	//3.读取feature的name属性，作为标注文本
+    var name = feature.getProperties()['name'];
+    //4.创建Text演示
+    var style = new ol.style.Style({
+        text: new ol.style.Text({
+            textAlign: 'center',			//水平方向中间对齐
+            textBaseline: 'middle',			//垂直方向居中对齐
+            font: '70px Microsoft YaHei',	//定义字体和大小
+            text: name,						//定义标注文本
+            fill: new ol.style.Fill({		//定义文字填充颜色
+                color: 'rgba(255,0,0,1.0)'
+            }),
+            stroke : new ol.style.Stroke({	//定义文字边框
+            	color: 'rgba(255,255,255,1.0)',
+            	width: 6.0
+            }),
+            offsetX: 0,						//定义X方向偏移量
+            offsetY: 0,						//定义Y方向偏移量
+            rotation: 45.0					//定义旋转角度
+        })
+    });
+    return style;
+}
+
+</script>

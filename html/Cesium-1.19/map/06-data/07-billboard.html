@@ -1,0 +1,129 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    @import url(../../Build/Cesium/Widgets/widgets.css);
+    #mapDiv {
+        position: absolute;
+        top: 40px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+    }
+    </style>
+    <script src="../../Build/Cesium/Cesium.js"></script>
+    <title>Cesium data billboard</title>
+    <script type="text/javascript">
+        var viewer = null;
+        function init(){
+            viewer = new Cesium.Viewer('mapDiv',{
+                animation : false, // 动画控制不显示
+                baseLayerPicker : false, // 图层控制不显示
+                fullscreenButton : false,// 全屏按钮不显示
+                geocoder : false, // 地名查找不显示
+                homeButton : false, // 首页按钮不显示
+                timeline : false, // 时间线不显示
+                navigationHelpButton : false, // 帮助不显示
+                sceneModePicker : false, // 场景样式不显示
+            });
+
+            var camera = viewer.camera;
+            camera.flyTo({
+                destination : Cesium.Cartesian3.fromDegrees(116.4,39.9, 100000),
+            });
+        } 
+
+        // 清空
+        function clearEntities(){
+            viewer.entities.removeAll()
+        }
+
+        // 增加一个billboard
+        function addBillboard(){
+            viewer.entities.add({
+                position : Cesium.Cartesian3.fromDegrees(116.4,39.9), // 位置
+                billboard :{
+                    image : '../images/Cesium_Logo_overlay.png' // 图片地址
+                }
+            });
+        }
+
+        //  billboard放大两倍
+        function addBillboardScale(){
+            viewer.entities.add({
+                position : Cesium.Cartesian3.fromDegrees(116.4,39.9), // 位置
+                billboard :{
+                    image : '../images/Cesium_Logo_overlay.png', // 图片地址
+                    scale : 2.0 // 放大比例
+                }
+            });            
+        }
+
+        // billborad 水平左对齐
+        function addBillboardHorizontal(){
+            viewer.entities.add({
+                position : Cesium.Cartesian3.fromDegrees(116.4,39.9), // 位置
+                billboard :{
+                    image : '../images/Cesium_Logo_overlay.png', // 图片地址
+                    horizontalOrigin : Cesium.HorizontalOrigin.LEFT, // 水平左对齐
+                    color: Cesium.Color.RED // 图片颜色
+                }
+            });            
+        }
+
+        //  billboard 竖直底部对齐
+        function addBillboardVertical(){
+            viewer.entities.add({
+                position : Cesium.Cartesian3.fromDegrees(116.4,39.9),// 位置
+                billboard :{
+                    image : '../images/Cesium_Logo_overlay.png',// 图片地址
+                    verticalOrigin : Cesium.VerticalOrigin.BOTTOM, // 竖直底部对齐
+                    color : Cesium.Color.BLUE// 图片颜色
+                }
+            });              
+        }
+
+        //  billboard 旋转
+        function addBillboardRotation(){
+            viewer.entities.add({
+                position : Cesium.Cartesian3.fromDegrees(116.4,39.9),// 位置
+                billboard :{
+                    image : '../images/Cesium_Logo_overlay.png', // 图片地址
+                    color : Cesium.Color.YELLOW, // 图片颜色
+                    rotation : Cesium.Math.toRadians(30) // 旋转角度
+                }
+            });                
+        }
+
+        //  billboard 设置高度和宽度
+        function addBillboardWidthHeight(){
+            viewer.entities.add({
+                position : Cesium.Cartesian3.fromDegrees(116.4,39.9),// 位置
+                billboard :{
+                    image : '../images/Cesium_Logo_overlay.png', // 图片地址
+                    color : Cesium.Color.PURPLE, // 图片颜色
+                    width : 200, // 宽度
+                    height : 40 // 高度
+                }
+            });            
+        }
+
+    </script>
+</head>
+
+<body onload="init()">
+    <span>Cesium data billboard</span>
+    <button onclick="clearEntities()">清空</button>
+    <button onclick="addBillboard()">billboard</button>
+    <button onclick="addBillboardScale()">billboard scale</button>
+    <button onclick="addBillboardHorizontal()">billboard horizontalOrigin</button>
+    <button onclick="addBillboardVertical()">billboard verticalOrigin</button>
+    <button onclick="addBillboardRotation()">billboard rotation</button>
+    <button onclick="addBillboardWidthHeight()">billboard width & height</button>
+    <div id="mapDiv"></div>
+</body>
+</html>
+
+
+        

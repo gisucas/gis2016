@@ -1,0 +1,88 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../v3.13.0-dist/ol.css" type="text/css">
+    <style>
+    #mapDiv {
+        height: 100%;
+        width: 100%;
+    }
+    </style>
+    <script src="../v3.13.0-dist/ol-debug.js" type="text/javascript"></script>
+    <title>[Interaction]:DragBox</title>
+</head>
+
+<body onload="init()">
+    <h2>[Interaction]:Dragbox</h2>
+    xmin:<input id='xmin' type='text' size='20'>
+    xmax:<input id='xmax' type='text' size='20'>
+    <br>
+    ymin:<input id='ymin' type='text' size='20'>
+    ymax:<input id='ymax' type='text' size='20'>
+    <br>
+    <div id="mapDiv"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+/**
+ * Define mapObj
+ */
+var mapObj;
+
+/**
+ * init Page
+ */
+function init() {
+    loadMap();
+    addDragBox();
+}
+
+/**
+ * Load Map
+ */
+function loadMap() {
+	
+    mapObj = new ol.Map({
+        target: 'mapDiv',
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.OSM({
+                    url: 'http://{a-c}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png'
+                })
+            })
+        ],
+        view: new ol.View({
+            center: ol.proj.fromLonLat([116.3, 39.9]),
+            zoom: 10
+        })
+    });
+}
+
+function addDragBox(){
+    //1.创建DropBox对象
+    var dragBox = new ol.interaction.DragBox();
+    //2.在mapObj上添加dragBox
+    mapObj.addInteraction(dragBox);
+
+    //注册boxend事件，在box绘制完成后触发
+    dragBox.on('boxend', function(evt) {
+    	//1.获得dragBox的引用
+    	var dragBox = evt.target;
+    	//2.获得Drag后的几何对象
+        var geometry = dragBox.getGeometry();
+        //3.获得Box的矩形
+        var extent = geometry.getExtent();
+        //4.获得范围
+        var xmin = extent[0];
+        var ymin = extent[1];
+        var xmax = extent[2];
+        var ymax = extent[3];        
+        document.getElementById('xmin').value = extent[0];
+        document.getElementById('ymin').value = extent[1];
+        document.getElementById('xmax').value = extent[2];
+        document.getElementById('ymax').value = extent[3];
+    });
+}
+</script>

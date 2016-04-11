@@ -1,0 +1,58 @@
+<html>
+
+<head>
+	<meta charset="UTF-8"> 
+	<script type="text/javascript" src='js/jquery-1.11.1.js'></script>
+
+	<script type="text/javascript">
+
+		function onAjaxPost(){
+			var url = "http://127.0.0.1/geoserver/radi/ows"
+			var params =  "<wfs:GetFeature service=\"WFS\" version=\"1.0.0\""
+						+ "  outputFormat=\"GML2\""
+						+ "  xmlns:topp=\"http://www.openplans.org/topp\""
+						+ "  xmlns:wfs=\"http://www.opengis.net/wfs\""
+						+ "  xmlns:ogc=\"http://www.opengis.net/ogc\""
+						+ "  xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+						+ "  xsi:schemaLocation=\"http://www.opengis.net/wfs"
+						+ "                      http://schemas.opengis.net/wfs/1.0.0/WFS-basic.xsd\">"
+						+ "  <wfs:Query typeName=\"radi:cities\">"
+						+ "  </wfs:Query>"
+						+ "</wfs:GetFeature>";
+
+			$.ajax({
+				type	:"post",
+				url		: url,
+				data	: params,
+				dataType: "text",
+				contentType: "text/xml",
+				async	: true,
+				beforeSend: function(XMLHttpRequest){
+				},
+				success	: function(xml, textStatus){
+					proessResult(xml);
+				},
+				complete: function(XMLHttpRequest, textStatus){
+				},
+				error	: function(){
+					processError();
+				}
+			});
+		};
+
+		function proessResult(xml){
+			alert(xml)
+		}
+
+	</script>
+
+    <title>Ajax GET</title>
+</head>
+
+<body>
+	<input id="btn" type="button" value="Post请求" onclick="onAjaxPost();" />
+	<br>
+	<div id="result" style="width:100%;height:500px"></div>
+</body>
+
+</html>

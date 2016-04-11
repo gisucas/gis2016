@@ -1,0 +1,72 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../v3.13.0-dist/ol.css" type="text/css">
+    <style>
+    #mapDiv {
+        height: 100%;
+        width: 100%;
+    }
+    </style>
+    <script src="../v3.13.0-dist/ol-debug.js" type="text/javascript"></script>
+    <title>[Interaction]:Modify</title>
+</head>
+
+<body onload="init()">
+    <h2>[Interaction]:Modify</h2>
+    <div id="mapDiv"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+var mapObj;
+
+function init() {
+
+    //1.创建Features集合
+    var featureCollection = new ol.Collection();
+    //2.创建Vector Source
+    //  设置ol.source.Vector的features属性为featureCollection
+    var source = new ol.source.Vector({
+        features: featureCollection
+    });
+    var vector = new ol.layer.Vector({
+        source: source,
+        style: new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: 'rgba(0, 0, 255, 1.0)',
+                width: 2
+            })
+        })
+    });
+
+    var tile = new ol.layer.Tile({
+        source: new ol.source.OSM({
+            url: 'http://{a-c}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png'
+        })
+    });
+
+    mapObj = new ol.Map({
+        target: 'mapDiv',
+        layers: [tile, vector],
+        view: new ol.View({
+            center: ol.proj.fromLonLat([0, 0]),
+            zoom: 3
+        }),
+
+        interactions: ol.interaction.defaults().extend([
+            // 3.添加Draw，设置features属性为featureCollection
+            //             保存绘制完之后的feature
+            new ol.interaction.Draw({
+                features: featureCollection,
+                type: 'LineString'          
+            }),
+            // 4.添加Modify，设置features属性为featureCollection
+            new ol.interaction.Modify({
+                features: featureCollection
+            })
+        ])
+    });
+}
+</script>

@@ -1,0 +1,43 @@
+<html>
+
+<head>
+	<meta charset="UTF-8"> 
+	<style type="text/css">
+		#myCanvas{
+			border: 1px solid #ccc;
+		}
+	</style>
+	<script type="text/javascript" src='js/jquery-1.11.1.js'></script>
+
+	<script type="text/javascript">
+		$().ready(function(){
+			var canvas = document.getElementById("myCanvas");
+			var context = canvas.getContext("2d");
+			
+			// 横向线性渐变
+			var gradient_h = context.createLinearGradient(0,0,200,0);
+			gradient_h.addColorStop(0,'rgb(255,0,0)');
+			gradient_h.addColorStop(0.5,'rgb(0,255,0)');
+			gradient_h.addColorStop(1,'rgb(0,0,255)');
+
+			context.fillStyle = gradient_h;
+			context.fillRect(0,0,200,200);
+
+			// 竖向线性渐变
+			var gradient_v = context.createLinearGradient(200,200,200,400);
+			gradient_v.addColorStop(0,'rgb(255,0,0)');
+			gradient_v.addColorStop(0.5,'rgb(0,255,0)');
+			gradient_v.addColorStop(1,'rgb(0,0,255)');
+
+			context.fillStyle = gradient_v;
+			context.fillRect(200,200,200,200);
+		});
+	</script>
+
+    <title>Canvas 线性渐变</title>
+</head>
+
+<body>
+	<canvas id="myCanvas" width="400" height="400"></canvas>
+</body>
+</html>

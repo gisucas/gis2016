@@ -1,0 +1,65 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../v3.13.0-dist/ol.css" type="text/css">
+    <style>
+    #mapDiv {
+        height: 100%;
+        width: 100%;
+    }
+    </style>
+    <script src="../v3.13.0-dist/ol-debug.js" type="text/javascript"></script>
+    <title>[Interaction]:Draw</title>
+</head>
+
+<body onload="init()">
+    <h2>[Interaction]:Draw</h2>
+    <div id="mapDiv"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+var mapObj;
+
+function init() {
+
+    //1.创建Vector Source，用于保存绘制后的geometry
+    var source = new ol.source.Vector();
+    //2.创建Vector Layer和Style，用于显示绘制后的geometry
+    var vector = new ol.layer.Vector({
+        source: source,
+        style: new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: 'rgba(255, 255, 255, 0.2)'
+            }),
+            stroke: new ol.style.Stroke({
+                color: 'rgba(0, 0, 255, 1.0)',
+                width: 2
+            })
+        })
+    });
+
+    var tile = new ol.layer.Tile({
+        source: new ol.source.OSM({
+            url: 'http://{a-c}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png'
+        })
+    });
+
+    mapObj = new ol.Map({
+        target: 'mapDiv',
+        layers: [tile, vector],
+        view: new ol.View({
+            center: ol.proj.fromLonLat([0,0]),
+            zoom: 3
+        }),
+        // 3.添加Draw Interaction，设置绘制的Geometry类型
+        interactions: ol.interaction.defaults().extend([
+            new ol.interaction.Draw({
+                source: source,         //Draw之后的Source
+                type: 'LineString'      //绘制要素的类型
+            })
+        ])
+    });
+}
+</script>

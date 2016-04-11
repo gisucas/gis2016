@@ -1,0 +1,37 @@
+<html>
+
+<head>
+	<meta charset="UTF-8"> 
+	<style type="text/css">
+		#myCanvas{
+			border: 1px solid #ccc;
+		}
+	</style>
+	<script type="text/javascript" src='js/jquery-1.11.1.js'></script>
+
+	<script type="text/javascript">
+		$().ready(function(){
+			var canvas = document.getElementById("myCanvas");
+			var context = canvas.getContext("2d");
+			context.beginPath();
+			context.arc(100,150,50,0,Math.PI * 2, true);
+			context.stroke();
+
+			context.beginPath();
+			context.arc(210,150,50,0,Math.PI, true);
+			context.stroke();
+
+			context.beginPath();
+			context.arc(320,150,50,Math.PI/2,-Math.PI/2, false);
+			context.stroke();
+		});
+
+	</script>
+
+    <title>Canvas 绘制圆、圆弧</title>
+</head>
+
+<body>
+	<canvas id="myCanvas" width="400" height="300"></canvas>
+</body>
+</html>

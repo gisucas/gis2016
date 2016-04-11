@@ -1,0 +1,60 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    @import url(../../Build/Cesium/Widgets/widgets.css);
+    #mapDiv {
+        position: absolute;
+        top: 40px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+    }
+    </style>
+    <script src="../../Build/Cesium/Cesium.js"></script>
+    <title>Cesium layer WMS</title>
+    <script type="text/javascript">
+        var viewer = null;
+        var nightLayer = null;
+        function init(){
+            viewer = new Cesium.Viewer('mapDiv',{
+                animation : false, // 动画控制不显示
+                baseLayerPicker : false, // 图层控制不显示
+                fullscreenButton : false,// 全屏按钮不显示
+                geocoder : false, // 地名查找不显示
+                homeButton : false, // 首页按钮不显示
+                timeline : false, // 时间线不显示
+                navigationHelpButton : false, // 帮助不显示
+                sceneModePicker : false, // 场景样式不显示
+            });
+
+            // viewer.scene.imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
+            //         url : '//nationalmap.gov.au/proxy/http://geoserver.nationalmap.nicta.com.au/geotopo_250k/ows',
+            //         layers : 'Hydrography:bores',
+            //         parameters : {
+            //             transparent : true,
+            //             format : 'image/png'
+            //         }
+            //     })
+            // );
+
+            viewer.scene.imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
+                    url : 'http://demo.boundlessgeo.com/geoserver/wms', // wms服务地址
+                    layers : 'topp:states', // wms图层
+                    parameters : {
+                        transparent : true,  // 透明
+                        format : 'image/png' // 图片格式
+                    }
+                })
+            );
+        } 
+    </script>
+</head>
+
+<body onload="init()">
+    <span>Cesium layer WMS</span>
+    <div id="mapDiv"></div>
+</body>
+</html>
+

@@ -1,0 +1,45 @@
+<html>
+
+<head>
+	<meta charset="UTF-8"> 
+	<style type="text/css">
+		#pos{
+			width:300px;
+			height:200px;
+			background-color: #FF0000;
+		}
+	</style>
+	<script type="text/javascript">
+
+		function mouse_down(e){
+			var text = "[down]:" + e.clientX + "," + e.clientY;
+			document.getElementById("info").value = text;
+		}
+		function mouse_up(e){
+			var text = "[up]:" + e.clientX + "," + e.clientY;
+			document.getElementById("info").value = text;
+		}
+		function mouse_move(e){
+			var text = "[move]:" + e.clientX + "," + e.clientY;
+			document.getElementById("info").value = text;
+		}
+
+		function init(){
+			var objDiv = document.getElementById("pos");
+			objDiv.onmousedown = mouse_down;
+			objDiv.onmousemove = mouse_move;
+			objDiv.onmouseup   = mouse_up;
+		}
+
+	</script>
+    <title>鼠标事件(1)</title>
+</head>
+
+<body onload="init()">
+	<input id="info" type='text' size="50">
+	<br>
+	<div id='pos'</div>
+
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../v3.13.0-dist/ol.css" type="text/css">
+    <style>
+    #mapDiv {
+        height: 100%;
+        width: 100%;
+    }
+    
+    #popup {
+        min-width: 180px;
+    }
+    </style>
+    <script src="../v3.13.0-dist/ol-debug.js" type="text/javascript"></script>
+    <!--  -->
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <title>[Maker]:添加popup Popup</title>
+</head>
+
+<body onload="init()">
+    <h2>[Maker]:添加popup Popup</h2>
+    <div id="popup"></div>
+    <div id="mapDiv"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+/**
+ * Define mapObj
+ */
+var mapObj;
+var popup;
+var lon = 116.3910484;
+var lat = 39.91642658;
+/**
+ * init Page
+ */
+function init() {
+    loadMap();
+    addPopup();
+}
+
+/**
+ * Load Map
+ */
+function loadMap() {
+
+    mapObj = new ol.Map({
+        target: 'mapDiv',
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.MapQuest({
+                    layer: 'sat'
+                })
+            })
+        ],
+        view: new ol.View({
+            center: ol.proj.fromLonLat([116.3910484, 39.91642658]),
+            zoom: 8,
+        })
+    });
+
+    mapObj.on('click', function(evt) {
+        if (popup == undefined) {
+            return;
+        }
+        var element = popup.getElement();
+        var coordinate = evt.coordinate;
+        var hdms = ol.coordinate.toStringHDMS(ol.proj.transform(
+            coordinate, 'EPSG:3857', 'EPSG:4326'));
+
+        $(element).popover('destroy');
+        popup.setPosition(coordinate);
+        // the keys are quoted to prevent renaming in ADVANCED mode.
+        $(element).popover({
+            'placement': 'top',
+            'animation': false,
+            'html': true,
+            'content': '<p>The location you clicked was:</p><code>' + hdms + '</code>'
+        });
+        $(element).popover('show');
+    });
+}
+
+function addPopup() {
+    popup = new ol.Overlay({
+        element: document.getElementById('popup'),
+    });
+    mapObj.addOverlay(popup);
+}
+</script>

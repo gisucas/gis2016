@@ -1,0 +1,38 @@
+<html>
+
+<head>
+	<meta charset="UTF-8"> 
+	<style type="text/css">
+		#myCanvas{
+			border: 1px solid #ccc;
+		}
+	</style>
+	<script type="text/javascript" src='js/jquery-1.11.1.js'></script>
+
+	<script type="text/javascript">
+		$().ready(function(){
+			var canvas = document.getElementById("myCanvas");
+			var context = canvas.getContext("2d");
+			
+			context.font = "30px Arial";
+			context.strokeText("Hello WebGIS",20,50);
+
+			context.textAlign = "right";
+			context.strokeText("Hello WebGIS-right",400,90);
+
+			context.textAlign = "center";
+			context.fillText("Hello WebGIS-center",200,140);
+
+			context.textAlign = "start";
+			var width = context.measureText("Hello WebGIS").width;
+			context.fillText("长:" +  width, 20,190);
+		});
+	</script>
+
+    <title>Canvas 文字</title>
+</head>
+
+<body>
+	<canvas id="myCanvas" width="400" height="400"></canvas>
+</body>
+</html>

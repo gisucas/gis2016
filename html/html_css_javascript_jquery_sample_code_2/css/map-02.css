@@ -1,0 +1,17 @@
+html,body{
+	font-size:12px;
+	overflow: hidden;
+	margin: 0px;
+	height:100%;
+	width: 100%;
+}
+
+#head_div{
+	height : 80px;
+	background-color: #FFFFCC;
+}
+
+#main_div{
+	height: calc(100% - 80px);
+	background-color: #99CCFF;
+}

@@ -1,0 +1,32 @@
+<html>
+
+<head>
+	<meta charset="UTF-8"> 
+	<script type="text/javascript" src='js/jquery-1.11.1.js'></script>
+
+	<script type="text/javascript">
+
+		function onClick(){
+			alert("按钮事件");
+		};
+
+		$().ready(function(){
+
+			$("#btn").each(function(){
+				$(this).click(function(){
+					alert("按钮事件");
+				})
+			});
+
+		});
+
+	</script>
+
+    <title>jQueyEvent</title>
+</head>
+
+<body>
+	<input id="btn" type="button" value="按钮"/>
+</body>
+
+</html>

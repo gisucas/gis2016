@@ -1,0 +1,34 @@
+<html>
+
+<head>
+	<meta charset="UTF-8"> 
+	<style type="text/css">
+		div{
+			width:200px;
+			height: 200px;
+		}
+
+		#container{
+			background-color: #00FF00;
+		}
+	</style>
+
+	<script type="text/javascript" src='js/jquery-1.11.1.js'></script>
+	<script type="text/javascript">
+
+		function mouse_over(){
+			$("#container").css("background-color","#FF0000");
+		};
+		function mouse_out(){
+			$("#container").css("background-color","#00FF00");
+		};
+	</script>
+
+    <title>jQuery操作CSS</title>
+</head>
+
+<body>
+	<div id="container" onmouseover="mouse_over()" onmouseout="mouse_out()"></div>
+</body>
+
+</html>

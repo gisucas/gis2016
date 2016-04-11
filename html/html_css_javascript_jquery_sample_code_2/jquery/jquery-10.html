@@ -1,0 +1,56 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+
+		#container{
+			width:200px;
+			height: 200px;
+			background-color: #00FF00;
+			border: 1px solid #565656;
+		}
+
+		#inner1{
+			background-color: #F105F5;
+			width: 60px;
+			height: 40px;
+		}
+
+		#inner2{
+			background-color: #A0A1F0;
+			width: 100px;
+			height: 60px;
+		}
+	</style>
+
+	<script type="text/javascript" src='js/jquery-1.11.1.js'></script>
+	<script type="text/javascript">	
+
+		function empty_f(){
+			$("#container").empty();
+		}
+
+		function remove_f(){
+			$("#container").remove();
+		}
+	</script>
+
+    <title>jQuery操作文档</title>
+</head>
+
+<body>
+	<button id="btn" onclick="empty_f()">empty</button>
+	<button id="btn" onclick="remove_f()">remove</button>
+	<br/>
+	<div id="container">
+		<div id="inner1">
+			inner1
+		</div>
+		<div id="inner2">
+			inner2
+		</div>
+	</div>
+</body>
+
+</html>

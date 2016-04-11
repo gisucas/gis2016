@@ -1,0 +1,100 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../v3.13.0-dist/ol.css" type="text/css">
+    <style>
+    #mapDiv {
+        height: 100%;
+        width: 100%;
+    }
+    #popup {
+        min-width: 180px;
+    }
+    </style>
+    <script src="../v3.13.0-dist/ol-debug.js" type="text/javascript"></script>
+    <!--  -->
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <title>[Overlay]:添加popup Popup</title>
+</head>
+
+<body onload="init()">
+    <h2>[Overlay]:添加popup Popup</h2>
+    <div id="popup"></div>
+    <div id="mapDiv"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+/**
+ * Define mapObj
+ */
+var mapObj;
+var popup;
+var lon = 116.3910484;
+var lat = 39.91642658;
+/**
+ * init Page
+ */
+function init() {
+    loadMap();
+    addPopup();
+}
+
+/**
+ * Load Map
+ */
+function loadMap() {
+
+    mapObj = new ol.Map({
+        target: 'mapDiv',
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.MapQuest({
+                    layer: 'sat'
+                })
+            })
+        ],
+        view: new ol.View({
+            center: ol.proj.fromLonLat([116.3910484, 39.91642658]),
+            zoom: 8,
+        })
+    });
+
+    mapObj.on('click', function(evt) {
+        if (popup == undefined) {
+            return;
+        }
+        //1.获得popup的HTML元素
+        var element = popup.getElement();
+        //2.获得鼠标当前位置的坐标
+        var coordinate = evt.coordinate;
+        //3.转换为的度分表格式
+        var hdms = ol.coordinate.toStringHDMS(ol.proj.transform(
+            coordinate, 'EPSG:3857', 'EPSG:4326'));
+        //4.销毁当前显示的popup
+        $(element).popover('destroy');
+        //5.设置popup显示的位置坐标
+        popup.setPosition(coordinate);
+        //6.定义popup参数
+        $(element).popover({
+            'placement': 'top',     //popup显示的相对位置
+            'animation': false,     //不使用动画
+            'html': true,           //popup内容使用html格式
+                                    //设置popup的显示内容
+            'content': '<p>The location you clicked was:</p><code>' + hdms + '</code>'
+        });
+        //7.显示popup
+        $(element).popover('show');
+    });
+}
+
+function addPopup() {
+    popup = new ol.Overlay({
+        element: document.getElementById('popup'),
+    });
+    mapObj.addOverlay(popup);
+}
+</script>

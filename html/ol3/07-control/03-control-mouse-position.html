@@ -1,0 +1,62 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../v3.13.0-dist/ol.css" type="text/css">
+    <style>
+    #mapDiv {
+        height: 100%;
+        width: 100%;
+    }
+    /*7.定义坐标容器样式*/
+    .custom-mouse-position{
+        position: relative;
+        float: left;
+    }
+    </style>
+    <script src="../v3.13.0-dist/ol.js" type="text/javascript"></script>
+    <title>控件:鼠标位置控件</title>
+</head>
+
+<body onload="init()">
+    <h2>控件:鼠标位置控件</h2>
+    <!--1.定义MousePosition输出坐标的容器Div-->
+    <div id="mouseDiv"></div>
+    <div id="mapDiv"></div>    
+</body>
+
+</html>
+<script type="text/javascript">
+var mapObj;
+
+function init() {
+    mapObj = new ol.Map({
+        target: 'mapDiv',
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.OSM({
+                    url: 'http://{a-c}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png'
+                })
+            })
+        ],
+        view: new ol.View({
+            center: ol.proj.fromLonLat([116.3, 39.9]),
+            zoom: 10
+        })
+    });
+
+    //2.创建OverviewMap控件
+    var control = new ol.control.MousePosition({
+        //3.定义坐标字符串格式，本例中小数保留4位
+        coordinateFormat: ol.coordinate.createStringXY(4),
+        projection: 'EPSG:4326',
+        //4.定义MousePosition坐标字符串容器的css样式
+        className: 'custom-mouse-position',
+        //5.定义MousePosition坐标字符串输出的div容器
+        target: document.getElementById('mouseDiv'),
+        undefinedHTML: '&nbsp;'
+    });
+    //6.添加控件到mapObj
+    mapObj.addControl(control);
+}
+</script>

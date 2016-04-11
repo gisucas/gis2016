@@ -1,0 +1,38 @@
+<html>
+
+<head>
+	<meta charset="UTF-8"> 
+	<style type="text/css">
+		#myCanvas{
+			border: 1px solid #ccc;
+		}
+	</style>
+	<script type="text/javascript" src='js/jquery-1.11.1.js'></script>
+
+	<script type="text/javascript">
+		$().ready(function(){
+			var canvas = document.getElementById("myCanvas");
+			var context = canvas.getContext("2d");
+			
+			context.fillStyle = "red";
+			context.fillRect(0,0,80,80);
+
+			context.save();
+
+			context.fillStyle = "green";
+			context.fillRect(100,0,80,80);
+
+			context.restore();
+			context.fillRect(0,100,80,80);
+		});
+	</script>
+
+    <title>Canvas 状态</title>
+</head>
+
+<body>
+
+	<canvas id="myCanvas" width="200" height="200"></canvas>
+
+</body>
+</html>

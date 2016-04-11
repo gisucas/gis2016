@@ -1,0 +1,14 @@
+body{
+	background-color: #FFFFCC;
+}
+
+.p_css{
+	font-size: 24px;
+	font-weight: bold;
+	color:#FF0000;
+}
+
+#map_img{
+	width:400px;
+	height:300px;
+}

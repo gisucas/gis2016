@@ -1,0 +1,57 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+
+		#container{
+			width:200px;
+			height: 200px;
+			background-color: #0088cc;
+			border: 1px solid #565656;
+		}
+
+		#inner1{
+			background-color: #F105F5;
+			width: 60px;
+			height: 40px;
+		}
+
+		#inner2{
+			background-color: #A0A1F0;
+			width: 100px;
+			height: 60px;
+		}
+	</style>
+
+	<script type="text/javascript" src='js/jquery-1.11.1.js'></script>
+	<script type="text/javascript">	
+
+		function show_f(){
+			$("#container").show();
+		}
+
+		function remove_f(){
+			$("#container").hide();
+		}
+
+		function toggle_f(){
+			$("#container").toggle();
+		}
+		
+	</script>
+
+    <title>jQuery操作文档</title>
+</head>
+
+<body>
+	<button id="btn" onclick="show_f()">show</button>
+	<button id="btn" onclick="remove_f()">hide</button>
+	<button id="btn" onclick="toggle_f()">toggle</button>
+	<br/>
+	<div id="container">
+		
+	</div>
+</body>
+
+</html>

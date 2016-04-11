@@ -1,0 +1,423 @@
+html,body{
+	font-size:12px;
+	overflow: hidden;
+	margin: 0px;
+	height:100%;
+	width: 100%;
+}
+
+#head_div{
+	height : 80px;
+
+	border-bottom: 1px solid #cad2dd;
+	box-shadow: 1px 2px 3px 0 #828e9a;
+}
+
+#main_div{
+	height: calc(100% - 80px);
+}
+
+#left_div{
+	float: left;
+	width: 300px;
+	height: 100%;
+}
+
+.left_panel{
+	width: 100%;
+	height: 100%;	
+	display: none;
+	border-right: 1px solid #cad2dd;
+}
+
+#result_container_div{
+	/*display: block;*/
+	overflow-y: auto;
+}
+
+#catalog_div{
+	display: block;
+}
+
+#map_container_div{
+	margin-left:301px;
+	width: calc(100% - 300px);
+	height: 100%;
+	position: relative;
+}
+
+#logo_div{
+	float: left;
+	margin-left:10px;
+	width: 64px;
+	height: 100%;
+	background-image: url(img/logo_64.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+#search_box {
+	margin-left: 90px;
+	height: 100%;
+}
+
+#search_box ul {
+	display: block;
+	list-style-type: none;
+	padding-left: 0px;
+	margin: 5px;
+
+	padding-top: 20px;
+}
+
+#search_box li{
+	float: left;
+}
+
+#search_text {
+	padding: 5px;
+	width: 200px;
+	height: 30px;
+}
+
+#search_btn {
+	display: block;
+	outline: none;
+	text-decoration: none;
+
+	color: #ffffff;
+	background-color: #006dcc;
+
+	margin-top: 0px;
+	margin-left: 10px;
+
+	width: 50px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	border-radius: 4px;
+}
+
+
+.result_container ul {
+	display: block;
+	list-style-type: none;
+	padding-left: 10px;
+	margin: 0px;
+	padding: 6px 4px; 
+}
+
+.result_container li{
+	float: left;
+}
+
+.result_logo{
+	float: left;
+	height: 32px;
+	width: 32px;
+	background-image: url("img/marker.png");
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.result_div{
+	font-family: Microsoft YaHei;
+	cursor: pointer;
+	padding-left: 6px;
+}
+.result_div_li{
+	width: 240px;
+}
+
+.result_div .result_name{
+	font-size: 14px;
+}
+.result_div .result_address{
+	color: #767676;
+}
+
+.result_container:hover{
+	background-color: #ddd;
+}
+
+#map_div{
+	width: 100%;
+	margin-top: 2px;
+	padding-top: 35px;
+	height: calc(100% - 37px);
+}
+
+
+#toolbar_div{
+	position: absolute;
+	top: 0px;
+	height: 34px;
+	background-color: #fff;
+	width:100%;
+	border-bottom: 1px solid #dcdcdc;
+	z-index: 1001;
+}
+
+#city{
+	float: left;
+	cursor: pointer;
+}
+
+#city span{
+	float: left;
+	text-align: center;
+	color: #0088cc;
+	height: 34px;
+	line-height: 34px;
+	margin-left: 6px;
+}
+#city .down{
+	background-image: url(img/down.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 34px;
+	width: 16px;
+	float: left;
+	display: inline-block;
+}
+
+.toolbar_list{
+	float: right;
+}
+
+.map_tool{
+	height: 34px;
+	float: right;
+	margin-right: 6px;
+	cursor: pointer;
+}
+
+.map_tool img{
+	vertical-align: middle;
+}
+
+.map_tool a{
+	text-decoration: none;
+	color: #0088cc;
+	line-height: 34px;
+}
+
+.map_tool a:hover{
+	text-decoration: underline;
+}
+
+#city_div{
+    position: absolute;
+    top: 38px;
+    left: 4px;
+    width: 260px;
+    height: 300px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    display: none;
+}
+
+#current_city{
+	border-bottom: 1px solid #ccc;
+	padding: 6px;
+}
+
+#pop_city{
+	padding: 6px;
+	border-bottom: 1px solid #ccc;
+}
+#pop_city ul{
+	margin: 0px;
+	padding: 0px;
+}
+#pop_city li{
+	float: left;
+	cursor: pointer;
+	margin-right: 6px;
+}
+#pop_city li a{
+	color: #0088cc;
+	text-decoration: none;
+}
+#pop_city li a:hover{
+	text-decoration: underline;
+}
+
+#city_list{
+	height: 246px;
+	overflow: auto;
+}
+.city_item{
+	margin: 6px 0px;
+}
+.prov_name{
+	float: left;
+	width: 40px;
+	font-weight: bold;
+	color: #363636;
+	padding-left: 6px;
+}
+.prov_city{
+	float: left;
+	width: 196px;
+}
+.prov_city a{
+	margin-right: 4px;
+	color: #999;
+	text-decoration: none;
+    white-space: nowrap;
+}
+.prov_city a:hover{
+	color: #0088cc;
+}
+
+.poi-item{
+	float: left;
+	width: 75px;
+	margin-top: 10px;
+	cursor: pointer;
+}
+
+.poi-item div{
+	text-align: center;
+	margin: 4px;
+    color: #0088CC;
+}
+
+.poi-item div:hover{
+	text-decoration: underline;
+}
+.poi-icon{
+	display: block;
+	background-image: url(img/poi-icons.png);
+	background-repeat: no-repeat;
+	width: 38px;
+	height: 38px;
+	margin-left: 18px;
+}
+
+.poi-hotel{
+	background-position: 0px 0px;
+}
+
+.poi-restaurant{
+	background-position: -38px 0px;
+}
+
+.poi-shop{
+	background-position: -76px 0px;
+}
+
+.poi-cinema{
+	background-position: -114px 0px;
+}
+
+.poi-site{
+	background-position: -152px 0px;
+}
+
+.poi-bank{
+	background-position: -190px 0px;
+}
+
+.poi-supermarket{
+	background-position: -228px 0px;
+}
+
+.poi-subway{
+	background-position: -266px 0px;
+}
+
+
+#return_menu{
+	height: 30px;
+    line-height: 30px;
+    padding-left: 10px;	
+}
+
+#return_menu a{
+	color: #0088cc;
+}
+
+#position_div{
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+	width: 200px;
+	height: 30px;
+	background-color: #fff;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+	border: 1px solid #ccc;
+	line-height: 30px;
+	color: #0088cc;
+	padding: 0px 4px;
+}
+
+#box_query_div{
+	position: absolute;
+	right: 220px;
+	top: 38px;
+	width: 180px;
+	height: 54px;
+	background-color: #fff;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+	padding: 4px;
+	display: none;
+}
+#box_query_div a{
+	text-decoration: none;
+	color: #0088cc;
+	line-height: 26px;
+	white-space: nowrap;
+}
+#box_query_div a:hover{
+	color: #cdcdcd;
+}
+#box_query_div a.selected{
+	font-weight: bold;
+}
+
+#measure_div{
+	position: absolute;
+	right: 60px;
+	top: 38px;
+	width: 110px;
+	height: 60px;
+	background-color: #fff;
+	padding: 8px 0px;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+	display: none;
+}
+.measure_tool{
+	width: 24px;
+	height: 24px;
+	float: left;
+	border: 1px solid #ccc;
+	margin: 0px 4px;
+	background-repeat: no-repeat;
+	background-position: center;
+	cursor: pointer;
+}
+
+
+.measure_tool:hover{
+	border:1px solid #0088cc;
+}
+
+#measure_length{
+	background-image: url(img/polyline_16.png);
+}
+
+#measure_area{
+	background-image: url(img/polygon.png);	
+}
+
+#measure_clear{
+	background-image: url(img/trash_20.png);	
+}
+
+#measure_result_div{
+	margin: 6px;
+}

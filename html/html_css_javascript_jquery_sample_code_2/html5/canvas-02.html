@@ -1,0 +1,47 @@
+<html>
+
+<head>
+	<meta charset="UTF-8"> 
+	<style type="text/css">
+		#myCanvas{
+			border: 1px solid #ccc;
+		}
+	</style>
+	<script type="text/javascript" src='js/jquery-1.11.1.js'></script>
+
+	<script type="text/javascript">
+		$().ready(function(){
+			var canvas = document.getElementById("myCanvas");
+			var context = canvas.getContext("2d");
+
+			// 不设定样式，默认为black黑色
+			context.fillRect(0,0,100,100);
+
+			context.fillStyle = "red";
+			context.fillRect(110,0,100,100);
+
+			// 通过设置透明度（0-1,1为纯色，0为透明)
+			context.fillStyle = "rgba(255,0,0,0.2)";
+			context.fillRect(220,0,100,100);
+
+			// 不设定样式，默认为black黑色
+			context.strokeRect(0,110,100,100);
+
+			context.strokeStyle = "red";
+			context.strokeRect(110,110,100,100);
+
+
+			context.strokeStyle = "rgba(255,0,0,0.2)";
+			context.strokeRect(220,110,100,100);
+
+
+		});
+	</script>
+
+    <title>Canvas 绘制矩形</title>
+</head>
+
+<body>
+	<canvas id="myCanvas" width="400" height="300"></canvas>
+</body>
+</html>
