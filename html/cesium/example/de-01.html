@@ -1,0 +1,29 @@
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    @import url(../cesium/Widgets/widgets.css);
+    #mapDiv {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+    }
+    </style>
+    <script src="../cesium/Cesium.js"></script>
+    <title>Cesium </title>
+    <script type="text/javascript">
+        var viewer = null;
+        function init(){
+            viewer = new Cesium.Viewer('mapDiv');
+        } 
+    </script>
+</head>
+
+<body onload="init()">
+    <div id="mapDiv"></div>
+</body>
+</html>
+
